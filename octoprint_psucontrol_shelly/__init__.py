@@ -19,6 +19,7 @@ class PSUControl_Shelly(
 
     def __init__(self):
         self.config = dict()
+        self.transition = False
 
     def get_settings_defaults(self):
         return dict(
@@ -89,11 +90,16 @@ class PSUControl_Shelly(
         return response
 
     def change_psu_state(self, state):
+        if self.transition:
+            # This one is mostly for the Shelly Cloud API which is rather slow.
+            self._logger.info("Still in transition between sending and receiving change, not sending command.")
+            return
+
         output = self.config['output']
 
         auth = None
         data = None
-        
+
         if self.config['use_cloud']:
             url = self.config['server_address'] + '/device/relay/control'
             url = url if regex.match('^http[s]*:\/\/', url) else 'https://' + url
@@ -104,7 +110,6 @@ class PSUControl_Shelly(
                 turn = state,
                 channel = str(output),
             )
-
         else:
             url = self.config['local_address'] + '/relay/' + str(output) + '?turn=' + state
             url = url if regex.match('^http[s]*:\/\/', url) else 'http://' + url
@@ -112,6 +117,7 @@ class PSUControl_Shelly(
             if self.config['enable_auth']:
                 auth = HTTPBasicAuth(self.config['username'], self.config['password'])
 
+        self.transition = True
         self.send(url=url, data=data, auth=auth)
 
     def turn_psu_on(self):
@@ -123,6 +129,7 @@ class PSUControl_Shelly(
         self.change_psu_state('off')
 
     def get_psu_state(self):
+        self.transition = False
         output = self.config['output']
 
         auth = None
@@ -152,9 +159,6 @@ class PSUControl_Shelly(
         try:
             self._logger.debug("Keys: " + ','.join(json_data))
             if self.config['use_cloud']:
-                self._logger.debug("Keys in data: " + ','.join(json_data['data']))
-                self._logger.debug("Keys in data/device_status: " + ','.join(json_data['data']['device_status']))
-                # self._logger.debug("Keys in data/device_status/relays: " + ','.join(json_data['data']['device_status']['relays']))
                 status = json_data['data']['device_status']['relays'][output]['ison']
             else:
                 status = json_data['ison']
