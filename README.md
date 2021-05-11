@@ -30,8 +30,8 @@ If your Shelly has multiple outputs (Shelly 2, 2.5, 3EM or 4PRO) select the corr
 Please check your logs first. If they do not explain your issue, open an issue in GitHub. Please set *octoprint.plugins.psucontrol* and *octoprint.plugins.psucontrol_shelly* to **DEBUG** and include the relevant logs. Feature requests are welcome as well.
 
 ## Todo
-- [ ] Add descriptions to settings page
+- [x] Add descriptions to settings page
 - [ ] Add images to documentation
-- [ ] Improve transition for cloud mode so it won't send new requests until status is returned.
+- [x] Improve transition for cloud mode so it won't send new requests until status is returned.
 - [ ] Retrieve Shelly model and set available options accordingly.
 - [ ] Add an option to disable switch input to prevent accidental shutdowns.
