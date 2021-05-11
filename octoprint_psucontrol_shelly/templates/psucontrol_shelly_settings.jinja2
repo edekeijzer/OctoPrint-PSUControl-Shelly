@@ -3,31 +3,40 @@
 <!-- /ko -->
 
 <form class="form-horizontal">
-    <h4>General</h4>
+    <h4>PSU Control - Shelly settings</h4>
     <div class="control-group">
         <div class="controls">
             <label class="checkbox">
             <input type="checkbox" data-bind="checked: settings.plugins.psucontrol_shelly.use_cloud"> Use Shelly Cloud
             </label>
+            <!-- ko if: settings.plugins.psucontrol_shelly.use_cloud() -->
+            <span class="help-block">Connect through the Shelly Cloud service. This requires an active connection to the internet.</span>
+            <!-- /ko -->
+            <!-- ko ifnot: settings.plugins.psucontrol_shelly.use_cloud() -->
+            <span class="help-block">Connect directly to the Shelly device over your LAN. This requires the devices to be in the same network.</span>
+            <!-- /ko -->
         </div>
     </div>
     <!-- ko if: settings.plugins.psucontrol_shelly.use_cloud() -->
     <div class="control-group">
         <label class="control-label">Server address</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psucontrol_shelly.server_address">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.psucontrol_shelly.server_address">
+            <span class="help-block">Your Shelly Cloud server address. See <a href="https://github.com/edekeijzer/OctoPrint-PSUControl-Shelly#configuration" target="_blank">plugin configuration</a> for more info.</span>
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">Auth key</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psucontrol_shelly.auth_key">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.psucontrol_shelly.auth_key">
+            <span class="help-block">Your Shelly Cloud authorization key. See <a href="https://github.com/edekeijzer/OctoPrint-PSUControl-Shelly#configuration" target="_blank">plugin configuration</a> for more info.</span>
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">Device ID</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psucontrol_shelly.device_id">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.psucontrol_shelly.device_id">
+            <span class="help-block">Your Shelly device ID. See <a href="https://github.com/edekeijzer/OctoPrint-PSUControl-Shelly#configuration" target="_blank">plugin configuration</a> for more info.</span>
         </div>
     </div>
     <!-- /ko -->
@@ -35,7 +44,8 @@
     <div class="control-group">
         <label class="control-label">Address</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psucontrol_shelly.local_address">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.psucontrol_shelly.local_address">
+            <span class="help-block">The IP address or hostname of your Shelly device.</span>
         </div>
     </div>
     <div class="control-group">
@@ -43,19 +53,20 @@
             <label class="checkbox">
             <input type="checkbox" data-bind="checked: settings.plugins.psucontrol_shelly.enable_auth"> Use authentication
             </label>
+            <span class="help-block">Check this if your Shelly requires a username and password to connect.</span>
         </div>
     </div>
     <!-- ko if: settings.plugins.psucontrol_shelly.enable_auth() -->
     <div class="control-group">
         <label class="control-label">Username</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psucontrol_shelly.username">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.psucontrol_shelly.username">
         </div>
     </div>
     <div class="control-group">
         <label class="control-label">Password</label>
         <div class="controls">
-            <input type="text" class="input" data-bind="value: settings.plugins.psucontrol_shelly.password">
+            <input type="password" class="input-block-level" data-bind="value: settings.plugins.psucontrol_shelly.password">
         </div>
     </div>
     <!-- /ko -->
@@ -63,8 +74,8 @@
     <div class="control-group">
         <label class="control-label">Output</label>
         <div class="controls">
-            <input type="number" min="0" class="input-mini" data-bind="value: settings.plugins.psucontrol_shelly.output">
-            <br/>
+            <input type="number" min="0" max="3" class="input-mini" data-bind="value: settings.plugins.psucontrol_shelly.output">
+            <span class="help-block">Certain Shelly devices have multiple outputs, select the output you'd like to switch here. For Shelly 1, keep this at 0.</span>
         </div>
     </div>
 </form>
