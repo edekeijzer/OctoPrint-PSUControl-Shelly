@@ -6,7 +6,7 @@ import setuptools
 plugin_identifier = "psucontrol_shelly"
 plugin_package = "octoprint_%s" % plugin_identifier
 plugin_name = "OctoPrint-PSUControl-Shelly"
-plugin_version = "1.0.1"
+plugin_version = "1.0.2"
 plugin_description = "Adds Shelly support to OctoPrint-PSUControl as a sub-plugin"
 plugin_author = "Erik de Keijzer"
 plugin_author_email = "erik.de.keijzer@gmail.com"
