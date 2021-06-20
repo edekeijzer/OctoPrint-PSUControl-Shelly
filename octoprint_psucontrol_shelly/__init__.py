@@ -75,10 +75,11 @@ class PSUControl_Shelly(
         except Exception:
             self._logger.exception("Exception while making API call")
         else:
-            if data:
-                self._logger.debug("url={}, data={}, status_code={}, text={}".format(url, data, response.status_code, response.text))
-            else:
-                self._logger.debug("url={}, status_code={}, text={}".format(url, response.status_code, response.text))
+            # if data:
+            #     self._logger.debug("url={}, data={}, status_code={}, text={}".format(url, data, response.status_code, response.text))
+            # else:
+            #     self._logger.debug("url={}, status_code={}, text={}".format(url, response.status_code, response.text))
+            self._logger.debug("url={}, status_code={}, text={}".format(url, response.status_code, response.text))
 
             if response.status_code == 401:
                 self._logger.warning("Server returned 401 Unauthorized. Check username/password or API key.")
@@ -110,6 +111,12 @@ class PSUControl_Shelly(
                 turn = state,
                 channel = str(output),
             )
+            sensing_method = self._settings.global_get(['plugins', 'psucontrol', 'sensingMethod'])
+            sensing_plugin = self._settings.global_get(['plugins', 'psucontrol', 'sensingPlugin'])
+            if sensing_method == "PLUGIN" and sensing_plugin == "psucontrol_shelly":
+                self._logger.debug("PSUControl is using us for sensing")
+                self.transition = True
+
         else:
             url = self.config['local_address'] + '/relay/' + str(output) + '?turn=' + state
             url = url if regex.match('^http[s]*:\/\/', url) else 'http://' + url
@@ -157,7 +164,6 @@ class PSUControl_Shelly(
 
         status = None
         try:
-            self._logger.debug("Keys: " + ','.join(json_data))
             if self.config['use_cloud']:
                 status = json_data['data']['device_status']['relays'][output]['ison']
             else:
