@@ -5,6 +5,7 @@ Adds Shelly support to OctoPrint-PSUControl as a sub-plugin
 - Install the plugin using Plugin Manager from Settings
 - Configure this plugin
 - Select this plugin as Switching **and** Sensing method in [PSU Control](https://github.com/kantlivelong/OctoPrint-PSUControl)
+- ***Turn off Auto-On in PSU Control*** or at least reduce the GCODEs that trigger it, the plugin *will wait* for a status update, which will lead to stuttering on slow connections or connection time-outs!
 
 ## Configuration
 The plugin can be used either with a direct connection to your Shelly or via Shelly Cloud.
