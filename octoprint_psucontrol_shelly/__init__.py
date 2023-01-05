@@ -7,7 +7,7 @@ __copyright__ = "Copyright (C) 2021 Erik de Keijzer - Released under terms of th
 
 import octoprint.plugin
 import requests
-from requests.auth import HTTPBasicAuth
+from requests.auth import HTTPBasicAuth, HTTPDigestAuth
 import re as regex
 
 class PSUControl_Shelly(
@@ -122,7 +122,10 @@ class PSUControl_Shelly(
             url = url if regex.match('^http[s]*:\/\/', url) else 'http://' + url
 
             if self.config['enable_auth']:
-                auth = HTTPBasicAuth(self.config['username'], self.config['password'])
+                if self.config['ng_device']:
+                    auth = HTTPDigestAuth(self.config['username'], self.config['password'])
+                else:
+                    auth = HTTPBasicAuth(self.config['username'], self.config['password'])
 
         self.transition = True
         self.send(url=url, data=data, auth=auth)
@@ -155,7 +158,10 @@ class PSUControl_Shelly(
             url = url if regex.match('^http[s]*:\/\/', url) else 'http://' + url
 
             if self.config['enable_auth']:
-                auth = HTTPBasicAuth(self.config['username'], self.config['password'])
+                if self.config['ng_device']:
+                    auth = HTTPDigestAuth(self.config['username'], self.config['password'])
+                else:
+                    auth = HTTPBasicAuth(self.config['username'], self.config['password'])
 
         response = self.send(url=url, data=data, auth=auth)
         if not response:

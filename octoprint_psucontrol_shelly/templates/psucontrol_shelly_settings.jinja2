@@ -22,6 +22,19 @@
             <!-- /ko -->
         </div>
     </div>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+            <input type="checkbox" data-bind="checked: settings.plugins.psucontrol_shelly.ng_device"> Shelly Next-gen (Pro/Plus) device
+            </label>
+            <!-- ko if: settings.plugins.psucontrol_shelly.ng_device() -->
+            <span class="help-block">Uncheck this if you are not using a Shelly Pro or Plus device.</span>
+            <!-- /ko -->
+            <!-- ko ifnot: settings.plugins.psucontrol_shelly.ng_device() -->
+            <span class="help-block">Check this if you are using a Shelly Pro or Plus device.</span>
+            <!-- /ko -->
+        </div>
+    </div>
     <!-- ko if: settings.plugins.psucontrol_shelly.use_cloud() -->
     <div class="control-group">
         <label class="control-label">Server address</label>
