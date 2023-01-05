@@ -24,6 +24,7 @@ class PSUControl_Shelly(
     def get_settings_defaults(self):
         return dict(
             use_cloud = False,
+            ng_device = False,
             server_address = '',
             auth_key = '',
             device_id = '',
