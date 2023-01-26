@@ -28,3 +28,6 @@ Please set Logging for *octoprint.plugins.psucontrol_shelly* to **DEBUG** and at
 
 ### Just to be sure
 Did you double check that the *PSU Control - Shelly* plugin is selected for ***Sensing as well as Switching*** in the PSU Control settings? Misconfiguration of this setting has been the cause of most of the reported issues.
+
+### To be very sure
+Did you read the previous paragraph and check the settings? From now on, these misconfigurations will be closed without further explanation.
