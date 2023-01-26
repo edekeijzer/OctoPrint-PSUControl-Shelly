@@ -27,7 +27,8 @@ If applicable, add screenshots to help explain your problem. Also, please includ
 Please set Logging for *octoprint.plugins.psucontrol_shelly* to **DEBUG** and attach *octoprint.log* to your report.
 
 ### Just to be sure
-Did you double check that the *PSU Control - Shelly* plugin is selected for ***Sensing as well as Switching*** in the PSU Control settings? Misconfiguration of this setting has been the cause of most of the reported issues.
+* Did you double check that the *PSU Control - Shelly* plugin is selected for ***Sensing as well as Switching*** in the PSU Control settings? Misconfiguration of this setting has been the cause of most of the reported issues.
+* Did you disable Auto-On in the PSU Control settings? This _will_ cause erratic behaviour in the plugin and is not considered a bug since it cannot be resolved.
 
 ### To be very sure
 Did you read the previous paragraph and check the settings? From now on, these misconfigurations will be closed without further explanation.
